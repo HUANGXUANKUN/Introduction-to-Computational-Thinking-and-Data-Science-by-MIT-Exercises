@@ -135,13 +135,16 @@ def compare_cow_transport_algorithms():
     Does not return anything.
     """
     start = time.time()
-    greedy_cow_transport(cows, limit)
+    print(greedy_cow_transport(cows, limit))
     end = time.time()
     print('time taken for greedy algorithm is',end - start)
     start = time.time()
-    brute_force_cow_transport(cows, limit)
+    print(brute_force_cow_transport(cows, limit))
     end = time.time()
+    print(start)
+    print(end)
     print('time taken for brute-force algorithm is',end - start)
+
 
 
 """
