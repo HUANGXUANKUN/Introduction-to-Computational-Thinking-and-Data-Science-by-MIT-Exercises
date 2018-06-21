@@ -1,4 +1,4 @@
-from matplotlib import pylab
+from matplotlib import pylab as plt
 mySamples = []
 myLinear = []
 myQuadratic = []
@@ -12,12 +12,24 @@ for i in range(0,30):
     myCubic.append(i**3)
     myExponential.append(1.5**i)
 
-#pylab.figure('lin')
-pylab.plot(mySamples, myLinear)
-pylab.show()
-#plt.plot(mySamples, myQuadratic)
-#plt.plot(mySamples, myCubic)
-#plt.plot(mySamples, myExponential)
-#
-#plt.figure('lin')
-#plt.plot(mySamples, myLinear)
+plt.figure('lin quad')
+plt.subplot(211)
+plt.ylim(0,900)
+plt.plot(mySamples, myLinear, 'b-', label = 'linear', linewidth = 2.0)
+plt.subplot(212)
+plt.ylim(0,900)
+plt.plot(mySamples, myQuadratic, 'r', label = 'quadratic', linewidth = 3.0)
+plt.legend(loc = 'upper left')
+plt.title('Linear vs. Quadratic')
+
+plt.figure('cub exp')
+plt.subplot(121)
+plt.ylim(0,14000)
+plt.plot(mySamples, myCubic, 'g--', label = 'cubic', linewidth = 4.0)
+plt.subplot(122)
+plt.ylim(0,14000)
+plt.plot(mySamples, myExponential, 'r.', label = 'exp', linewidth = 5.0)
+plt.legend()
+plt.title('Cubic vs. Exponential')
+plt.show()
+
