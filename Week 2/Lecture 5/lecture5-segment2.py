@@ -44,3 +44,5 @@ def fracBoxCars(numTests):
     
 print('Frequency of double 6 =',
       str(fracBoxCars(100000)*100) + '%')
+
+
