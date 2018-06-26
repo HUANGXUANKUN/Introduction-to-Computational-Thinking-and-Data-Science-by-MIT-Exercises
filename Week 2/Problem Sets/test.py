@@ -1,5 +1,9 @@
-# 6.00.2x Problem Set 2: Simulating robots
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jun 26 11:48:38 2018
 
+@author: HuangXuankun
+"""
 import math
 import random
 
@@ -64,7 +68,6 @@ class Position(object):
         return "(%0.2f, %0.2f)" % (self.x, self.y)
 
 
-# === Problem 1
 class RectangularRoom(object):
     """
     A RectangularRoom represents a rectangular region containing clean or dirty
@@ -264,15 +267,8 @@ class StandardRobot(Robot):
         else:
             self.direction = random.randint(0,359)
             self.updatePositionAndClean()
-            
 
-
-# Uncomment this line to see your implementation of StandardRobot in action!
-#testRobotMovement(StandardRobot, RectangularRoom)
-
-
-# === Problem 4
-def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
+def runSimulation(speed, width, height,
                   robot_type):
     """
     Runs NUM_TRIALS trials of the simulation and returns the mean number of
@@ -290,126 +286,37 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     robot_type: class of robot to be instantiated (e.g. StandardRobot or
                 RandomWalkRobot)
     """
-    def ifCovered(room, min_coverage):
-        roomSize = room.getNumTiles()
-        if round(room.getNumCleanedTiles() / roomSize, 2) >= min_coverage:
-            return True
-        return False
-    
+
     room = RectangularRoom(width,height)
-    robots = []
-    total_steps = 0
-
-    for botNum in range(num_robots):
-        robots.append(robot_type(room, speed))
-        robots[botNum].updatePositionAndClean()
-
-    for trial in range(num_trials):
-#        anim = ps2_visualize.RobotVisualization(num_robots, width, height)
-        num_steps = 0
-        room.__init__(width,height)
-        loop = True
-        while loop:
-#            anim.update(room, robots)
-            for robot in robots:          
-                robot.updatePositionAndClean()
-                num_steps += 1
-                if ifCovered(room, min_coverage):
-                   loop = False 
-        total_steps += num_steps
-#        anim.done()
-        
-    mean_steps = float(int(total_steps / num_trials / num_robots))
-    return mean_steps    
-
-# Uncomment this line to see how much your simulation takes on average
-#print(runSimulation(1, 1.0, 5, 5, 1, 30, StandardRobot))
-#print(runSimulation(1, 1.0, 10, 10, 0.75, 30, StandardRobot))
-#print(runSimulation(1, 1.0, 10, 10, 0.9, 30, StandardRobot))
-#print(runSimulation(1, 1.0, 20, 20, 1, 30, StandardRobot))
-#print(runSimulation(3, 1.0, 20, 20, 1, 30, StandardRobot))
-
-
-
-# === Problem 5
-class RandomWalkRobot(Robot):
-    """
-    A RandomWalkRobot is a robot with the "random walk" movement strategy: it
-    chooses a new direction at random at the end of each time-step.
-    """
-    def updatePositionAndClean(self):
-        """
-        Simulate the passage of a single time-step.
-
-        Move the robot to a new position and mark the tile it is on as having
-        been cleaned.
-        """
-        self.direction = random.randint(0,359)
-        newPos = self.position.getNewPosition(self.direction, self.speed)
-        if (newPos.getX() > 0 and newPos.getX() < self.room.width) and (newPos.getY() > 0 and newPos.getY() < self.room.height):
-                self.position = newPos
-                self.room.cleanTileAtPosition(self.position)
-        else:
-            self.updatePositionAndClean()        
-
-#testRobotMovement(RandomWalkRobot, RectangularRoom)
-
-def showPlot1(title, x_label, y_label):
-    """
-    What information does the plot produced by this function tell you?
-    """
-    num_robot_range = range(1, 11)
-    times1 = []
-    times2 = []
-    for num_robots in num_robot_range:
-        print("Plotting", num_robots, "robots...")
-        times1.append(runSimulation(num_robots, 1.0, 20, 20, 0.8, 20, StandardRobot))
-        times2.append(runSimulation(num_robots, 1.0, 20, 20, 0.8, 20, RandomWalkRobot))
-    pylab.plot(num_robot_range, times1)
-    pylab.plot(num_robot_range, times2)
-    pylab.title(title)
-    pylab.legend(('StandardRobot', 'RandomWalkRobot'))
-    pylab.xlabel(x_label)
-    pylab.ylabel(y_label)
-    pylab.show()
-
-#showPlot1('Number of Robots vs Mean time-steps','numbers of robots','Mean time-step')   
-def showPlot2(title, x_label, y_label):
-    """
-    What information does the plot produced by this function tell you?
-    """
-    aspect_ratios = []
-    times1 = []
-    times2 = []
-    for width in [10, 20, 25, 50]:
-        height = 300//width
-        print("Plotting cleaning time for a room of width:", width, "by height:", height)
-        aspect_ratios.append(float(width) / height)
-        times1.append(runSimulation(2, 1.0, width, height, 0.8, 200, StandardRobot))
-        times2.append(runSimulation(2, 1.0, width, height, 0.8, 200, RandomWalkRobot))
-    pylab.plot(aspect_ratios, times1)
-    pylab.plot(aspect_ratios, times2)
-    pylab.title(title)
-    pylab.legend(('StandardRobot', 'RandomWalkRobot'))
-    pylab.xlabel(x_label)
-    pylab.ylabel(y_label)
-    pylab.show()
+    roomSize = room.getNumTiles()
+    robot = robot_type(room,speed)
+    i = 0
+    while i <= 5:
+        robot.updatePositionAndClean()
+        i+=1
+    print('robot room has',robot.room.getNumCleanedTiles(),'clean tiles ')
+    print('Room has',room.getNumCleanedTiles(),'clean tiles ')
     
-showPlot2('a','b','c')
-# === Problem 6
-# NOTE: If you are running the simulation, you will have to close it 
-# before the plot will show up.
+#runSimulation(1.0, 8, 8, StandardRobot)
+class objecta(object):
+    def __init__(self,a):
+        self.a = a
+    def aPlus1(self):
+        self.a += 1
 
-#
-# 1) Write a function call to showPlot1 that generates an appropriately-labeled
-#     plot.
-#
-#       (... your call here ...)
-
-
-#
-# 2) Write a function call to showPlot2 that generates an appropriately-labeled
-#     plot.
-#
-#       (... your call here ...)
-#
+class A(object):
+    def __init__(self,a,b):
+        self.A = a
+        self.b = b
+    def aPlus1(self):
+        self.A.aPlus1()
+    def bPlus1(self):
+        self.b += 1
+        
+a = objecta(3)
+b = 4
+sample = A(a,b)
+sample.aPlus1()
+sample.bPlus1()
+print(a,sample.A)
+print(b,sample.b)
