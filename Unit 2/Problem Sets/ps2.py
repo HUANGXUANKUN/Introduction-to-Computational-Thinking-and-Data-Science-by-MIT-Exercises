@@ -322,7 +322,7 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     mean_steps = float(int(total_steps / num_trials / num_robots))
     return mean_steps    
 
-# Uncomment this line to see how much your simulation takes on average
+
 #print(runSimulation(1, 1.0, 5, 5, 1, 30, StandardRobot))
 #print(runSimulation(1, 1.0, 10, 10, 0.75, 30, StandardRobot))
 #print(runSimulation(1, 1.0, 10, 10, 0.9, 30, StandardRobot))
@@ -373,7 +373,7 @@ def showPlot1(title, x_label, y_label):
     pylab.ylabel(y_label)
     pylab.show()
 
-#showPlot1('Number of Robots vs Mean time-steps','numbers of robots','Mean time-step')   
+showPlot1('Number of Robots vs Mean time-steps','numbers of robots','Mean time-step')   
 def showPlot2(title, x_label, y_label):
     """
     What information does the plot produced by this function tell you?
@@ -395,7 +395,7 @@ def showPlot2(title, x_label, y_label):
     pylab.ylabel(y_label)
     pylab.show()
     
-showPlot2('a','b','c')
+#showPlot2('a','b','c')
 # === Problem 6
 # NOTE: If you are running the simulation, you will have to close it 
 # before the plot will show up.
