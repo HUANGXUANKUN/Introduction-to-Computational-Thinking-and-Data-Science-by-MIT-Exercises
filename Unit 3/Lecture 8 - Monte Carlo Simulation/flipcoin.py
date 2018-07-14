@@ -43,6 +43,7 @@ def clt():
         for t in range(20):
             sample = flipCoin(sampleSize)## FILL THIS IN
             sampleMeans.append(getMeanAndStd(sample)[0])
+            print(sample,sampleMeans)
         meanOfMeans.append(sum(sampleMeans)/20)
         stdOfMeans.append(getMeanAndStd(sampleMeans)[1])
             
